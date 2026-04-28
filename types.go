@@ -444,6 +444,10 @@ type Message struct {
 	//
 	// optional
 	Entities []MessageEntity `json:"entities,omitempty"`
+	// LinkPreviewOptions are options used for link preview generation for the message, if it is a text message and link preview options were changed.
+	//
+	// optional
+	LinkPreviewOptions *LinkPreviewOptions `json:"link_preview_options,omitempty"`
 	// Animation message is an animation, information about the animation.
 	// For backward compatibility, when this field is set, the document field will also be set;
 	//
@@ -3001,6 +3005,32 @@ type SentWebAppMessage struct {
 	InlineMessageID string `json:"inline_message_id,omitempty"`
 }
 
+// LinkPreviewOptions describes the options used for link preview generation.
+type LinkPreviewOptions struct {
+	// IsDisabled is true if the link preview is disabled.
+	//
+	// optional
+	IsDisabled bool `json:"is_disabled,omitempty"`
+	// URL to use for the link preview. If empty, then the first URL found in the message text will be used.
+	//
+	// optional
+	URL string `json:"url,omitempty"`
+	// PreferSmallMedia is true if the media in the link preview is supposed to be shrunk.
+	// Ignored if the URL isn't explicitly specified or media size change isn't supported for the preview.
+	//
+	// optional
+	PreferSmallMedia bool `json:"prefer_small_media,omitempty"`
+	// PreferLargeMedia is true if the media in the link preview is supposed to be enlarged.
+	// Ignored if the URL isn't explicitly specified or media size change isn't supported for the preview.
+	//
+	// optional
+	PreferLargeMedia bool `json:"prefer_large_media,omitempty"`
+	// ShowAboveText is true if the link preview must be shown above the message text.
+	//
+	// optional
+	ShowAboveText bool `json:"show_above_text,omitempty"`
+}
+
 // InputTextMessageContent contains text for displaying
 // as an inline query result.
 type InputTextMessageContent struct {
@@ -3017,10 +3047,10 @@ type InputTextMessageContent struct {
 	//
 	// optional
 	Entities []MessageEntity `json:"entities,omitempty"`
-	// DisableWebPagePreview disables link previews for links in the sent message
+	// LinkPreviewOptions are options used for link preview generation for the message.
 	//
 	// optional
-	DisableWebPagePreview bool `json:"disable_web_page_preview,omitempty"`
+	LinkPreviewOptions *LinkPreviewOptions `json:"link_preview_options,omitempty"`
 }
 
 // InputLocationMessageContent contains a location for displaying
